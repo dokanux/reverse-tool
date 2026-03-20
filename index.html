@@ -147,11 +147,21 @@
 </div>
 
 <script>
+  function formatNumber(val) {
+    // Hapus karakter selain angka, titik, koma, minus
+    const cleaned = val.trim().replace(/,/g, ''); // hapus koma existing
+    const num = parseFloat(cleaned);
+    if (isNaN(num)) return val.trim(); // bukan angka, kembalikan apa adanya
+    // Format: thousand separator + 2 desimal
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
   function reverse() {
     const raw = document.getElementById('input').value;
     const lines = raw.split('\n');
     const reversed = [...lines].reverse();
-    const result = reversed.join('\n');
+    const formatted = reversed.map(line => line.trim() === '' ? '' : formatNumber(line));
+    const result = formatted.join('\n');
 
     document.getElementById('output').value = result;
     document.getElementById('count-in').textContent = lines.length + ' baris';
