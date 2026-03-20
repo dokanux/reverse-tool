@@ -152,8 +152,8 @@
     const cleaned = val.trim().replace(/,/g, ''); // hapus koma existing
     const num = parseFloat(cleaned);
     if (isNaN(num)) return val.trim(); // bukan angka, kembalikan apa adanya
-    // Format: thousand separator + 2 desimal
-    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // Kali 1000, lalu format: thousand separator + 2 desimal
+    return (num * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function reverse() {
