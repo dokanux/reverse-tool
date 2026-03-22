@@ -159,6 +159,10 @@
     const num = parseFloat(cleaned);
     if (isNaN(num)) return trimmed; // bukan angka, kembalikan apa adanya
     
+    // Jika panjang digit > 10, jangan format (kemungkinan ID/kode panjang)
+    const digitsOnly = cleaned.replace(/[^0-9]/g, '');
+    if (digitsOnly.length > 10) return trimmed;
+    
     // Kali 1000, lalu format: thousand separator + 2 desimal
     return (num * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
